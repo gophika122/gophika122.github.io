@@ -1,0 +1,222 @@
+// ✅ FINAL POLISHED CODE FOR GOPHIKA'S PORTFOLIO
+
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Mail,
+  Phone,
+  Github,
+  Linkedin,
+  Sun,
+  Moon,
+  Download,
+} from "lucide-react";
+
+export default function Portfolio() {
+  const [darkMode, setDarkMode] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <AnimatePresence mode="wait">
+      {isLoading ? (
+        <motion.div
+          key="loader"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: 0.5 } }}
+          className="flex items-center justify-center h-screen bg-[#2a0845] text-white text-2xl font-semibold"
+        >
+          <motion.div
+            initial={{ rotate: 0 }}
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+            className="w-10 h-10 border-4 border-white border-t-transparent rounded-full mr-4"
+          ></motion.div>
+          Loading Gophika's World...
+        </motion.div>
+      ) : (
+        <motion.div
+          key="content"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          className="min-h-screen bg-gradient-to-br from-[#2a0845] to-[#6441a5] text-white dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800"
+        >
+          {/* Header */}
+          <header className="flex justify-between items-center p-6">
+            <h1 className="text-2xl font-bold tracking-widest">GOPHIKA L.G</h1>
+            <nav className="space-x-4 text-sm md:text-base">
+              <a href="#about" className="hover:underline">About</a>
+              <a href="#skills" className="hover:underline">Skills</a>
+              <a href="#projects" className="hover:underline">Projects</a>
+              <a href="#contact" className="hover:underline">Contact</a>
+            </nav>
+            <div className="flex items-center gap-4">
+              <a
+                href="/GOPHIKA_LG_RESUME.pdf"
+                download
+                className="p-2 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md"
+                aria-label="Download Resume"
+              >
+                <Download className="text-green-300" />
+              </a>
+              <button
+                onClick={() => setDarkMode(!darkMode)}
+                className="p-2 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md"
+                aria-label="Toggle Theme"
+              >
+                {darkMode ? (
+                  <Sun className="text-yellow-300" />
+                ) : (
+                  <Moon className="text-blue-400" />
+                )}
+              </button>
+            </div>
+          </header>
+
+          {/* Hero Section */}
+          <section className="flex flex-col justify-center items-center h-[80vh] text-center">
+            <motion.h2
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              className="text-6xl font-extrabold tracking-tight mb-4"
+            >
+              GOPHIKA L.G's World
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 1 }}
+              className="text-xl font-light italic"
+            >
+              Turning Ideas Into Impact.
+            </motion.p>
+          </section>
+
+          {/* About Section */}
+          <section id="about" className="p-10">
+            <motion.h3
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-3xl font-bold mb-4"
+            >
+              About Me
+            </motion.h3>
+            <p className="max-w-3xl text-lg leading-relaxed">
+              I’m GOPHIKA L.G, a passionate Software Developer and enthusiastic learner from Salem, India. I’m currently pursuing B.Tech in Information Technology at Dhirajlal Gandhi College of Technology.
+              <br /><br />
+              With hands-on experience in full-stack web development and AI-driven projects, I love solving real-world problems through technology. I'm deeply motivated to grow professionally and contribute to impactful solutions.
+              <br /><br />
+              I dream of becoming a software engineer at Zoho and one day, serving society as an IPS officer.
+            </p>
+          </section>
+
+          {/* Skills Section */}
+          <section id="skills" className="p-10 bg-[#1c1c2c] dark:bg-gray-900">
+            <motion.h3
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-3xl font-bold mb-6 text-center"
+            >
+              Skills
+            </motion.h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-center text-lg">
+              <div>Python</div>
+              <div>Java</div>
+              <div>HTML</div>
+              <div>CSS</div>
+              <div>JavaScript</div>
+              <div>SQL</div>
+              <div>Flask</div>
+              <div>Flutter</div>
+              <div>Git & GitHub</div>
+              <div>OOPs</div>
+              <div>Web Development</div>
+            </div>
+          </section>
+
+          {/* Projects Section */}
+          <section id="projects" className="p-10">
+            <motion.h3
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-3xl font-bold mb-6 text-center"
+            >
+              Projects
+            </motion.h3>
+            <div className="space-y-6 max-w-4xl mx-auto">
+              <div className="bg-white/10 p-6 rounded-lg shadow-md dark:bg-white/5">
+                <h4 className="text-2xl font-semibold mb-2">AI Scam Shield</h4>
+                <p>
+                  Built using Python, NLP, and ML. A scam detection system that identifies fraud messages and gives real-time alerts. Includes a Flutter mobile app + Flask backend.
+                </p>
+              </div>
+              <div className="bg-white/10 p-6 rounded-lg shadow-md dark:bg-white/5">
+                <h4 className="text-2xl font-semibold mb-2">E-Commerce Website</h4>
+                <p>
+                  Developed a responsive online store using HTML, CSS, and JS. Features include product listings, shopping cart, and user authentication.
+                </p>
+              </div>
+              <div className="bg-white/10 p-6 rounded-lg shadow-md dark:bg-white/5">
+                <h4 className="text-2xl font-semibold mb-2">EBPI: Price Recommendation System</h4>
+                <p>
+                  Analyzed sales data to suggest product pricing using statistical techniques. Helped enhance decision-making in eCommerce strategies.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Contact Section */}
+          <section id="contact" className="p-10 bg-[#1c1c2c] text-white dark:bg-gray-900">
+            <motion.h3
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-3xl font-bold mb-6 text-center"
+            >
+              Contact Me
+            </motion.h3>
+
+            <div className="max-w-2xl mx-auto space-y-4 text-center">
+              <div className="flex items-center justify-center gap-3">
+                <Mail className="text-[#00ffff]" />
+                <span>gophikAgopalakrishnan@gmail.com</span>
+              </div>
+              <div className="flex items-center justify-center gap-3">
+                <Phone className="text-[#00ffff]" />
+                <span>9360910616</span>
+              </div>
+              <div className="flex items-center justify-center gap-3">
+                <Github className="text-[#00ffff]" />
+                <a href="https://github.com/gophika122" target="_blank" className="hover:underline">
+                  github.com/gophika122
+                </a>
+              </div>
+              <div className="flex items-center justify-center gap-3">
+                <Linkedin className="text-[#00ffff]" />
+                <a href="https://www.linkedin.com/in/gophika-l-g-380797301" target="_blank" className="hover:underline">
+                  linkedin.com/in/gophika-l-g-380797301
+                </a>
+              </div>
+            </div>
+          </section>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
